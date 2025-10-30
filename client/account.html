@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Rajdhani:wght@500&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="css/account.css">
+        <link rel="stylesheet" href="css/universal.css">
+        <title>Game Store : Account</title>
+    </head>
+    <body class="select">
+        <header>
+            <div class="menu">
+                <img src="img/menu/menu-button.png" class="menu-button" alt="Menu">
+                <div class="main-title">GAME STORE</div>
+                <img src="img/menu/account-button.jpg" class="account-button" alt="Account">
+            </div>
+        </header>
+
+        <main>
+            <div id="background"></div>
+            
+            <div class="account-container">
+                <div class="account-header">
+                    <div class="avatar-container">
+                        <img id="user-avatar" src="img/default-avatar.jpg" alt="User Avatar" class="user-avatar">
+                    </div>
+                    <h2 id="username-display" class="account-title">Loading...</h2>
+                </div>
+                
+                <div class="account-details">
+                    <div class="detail-group">
+                        <span class="detail-label">Email:</span>
+                        <span id="email-display" class="detail-value">Loading...</span>
+                    </div>
+                </div>
+                
+                <button id="logout-btn" class="logout-btn">EXIT</button>
+            </div>
+
+            <div class="account-products-section">
+                <h2 class="products-section-title">YOUR PRODUCTS</h2>
+                <div class="products-grid" id="products-container">
+                    <div class="no-products">Loading products...</div>
+                </div>
+            </div>
+
+            <div id="purchase-modal" class="purchase-modal">
+                <div class="purchase-container">
+                    <h2 class="purchase-title select">CONFIRM PURCHASE</h2>
+                    
+                    <div class="purchase-total">
+                        <span class="total-label select">TOTAL:</span>
+                        <span id="total-price" class="total-value select">$0.00</span>
+                    </div>
+                    
+                    <div class="purchase-buttons">
+                        <button id="confirm-purchase" class="purchase-btn select">BUY NOW</button>
+                        <button id="cancel-purchase" class="cancel-btn select">CANCEL</button>
+                    </div>
+                </div>
+            </div>
+
+            <button id="buy-all-btn" class="buy-all-btn select">BUY ALL PRODUCTS</button>
+        </main>
+
+        <footer>
+            <p>All rights aren`t reserved. LOL</p>
+        </footer>
+
+        <script src="js/account.js"></script>
+        <script src="js/background.js"></script>
+        <script src="js/universal.js"></script>
+    </body>
+</html>

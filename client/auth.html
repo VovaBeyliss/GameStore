@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Rajdhani:wght@500&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="css/auth.css">
+        <link rel="stylesheet" href="css/universal.css">
+        <title>Game Store : Authorization</title>
+    </head>
+
+    <body>
+        <header>
+            <div class="menu">
+                <img src="img/menu/menu-button.png" class="menu-button" alt="Menu">
+                <div class="main-title">GAME STORE</div>
+                <img src="img/menu/account-button.jpg" class="account-button" alt="Account">
+            </div>
+        </header>
+
+        <main>
+            <div id="background"></div>
+            
+            <div class="auth-container">
+                <h2 class="auth-title select">Welcome Back</h2>
+                
+                <div class="input-group">
+                    <input type="text" id="username" placeholder=" " required>
+                    <label for="username" class="select">Username</label>
+                </div>
+                
+                <div class="input-group">
+                    <input type="email" id="email" placeholder=" " required>
+                    <label for="email" class="select">Email</label>
+                </div>
+                
+                <div class="input-group">
+                    <input type="password" id="password" placeholder=" " required>
+                    <label for="password" class="select">Password</label>
+                </div>
+                
+                <button class="submit-btn select">SIGN IN</button>
+                
+                <div class="auth-footer select">
+                    Don't have an account? <a href="regis.html">Register</a>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+
+        </footer>
+        
+        <script src="js/auth.js"></script>
+        <script src="js/background.js"></script>
+        <script src="js/universal.js"></script>
+    </body>
+</html>
