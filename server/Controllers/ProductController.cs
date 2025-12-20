@@ -15,7 +15,7 @@ public class ProductController : ControllerBase {
     }
 
     [HttpPost]
-    public async Task<IActionResult> ProductToDb([FromBody] ProductRequest request, int id) {
+    public async Task<IActionResult> ProductToDb([FromBody] ProductDto request, int id) {
         try {
             var product = await _db.Products.FirstOrDefaultAsync(p => p.Name == request.Name && 
                 p.Description == request.Description && 
@@ -56,8 +56,4 @@ public class ProductController : ControllerBase {
     }
 }
 
-public class ProductRequest {
-    public string Name { get; set; } = null!;
-    public string Description { get; set; } = null!;
-    public string Price { get; set; } = null!;
-}
+public record ProductDto(string Name, string Description, string Price);

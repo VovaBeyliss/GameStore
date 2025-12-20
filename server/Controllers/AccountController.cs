@@ -15,7 +15,7 @@ public class AccountController : ControllerBase {
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetUser(int id) {
+    public async Task<IActionResult> GetUser([FromRoute] int id) {
         try {
             var user = await _db.Users.FirstOrDefaultAsync(u => u.Id == id);
 

@@ -5,6 +5,6 @@ namespace GameStore.Models {
         public int Count { get; set;}
         public string Name { get; set; } = null!;
         public string Description { get; set; } = null!;
-        public string Price { get; set; } = null!;
+        public string Price { get; set; } = null!;  
     }
 }

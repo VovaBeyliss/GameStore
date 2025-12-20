@@ -34,8 +34,4 @@ public class AuthorizationController : ControllerBase {
     }
 }
 
-public class AuthorizationDto {
-    public string Username { get; set; } = null!;
-    public string Email { get; set; } = null!;
-    public string Password { get; set; } = null!;
-}
+public record AuthorizationDto(string Username, string Email, string Password);
