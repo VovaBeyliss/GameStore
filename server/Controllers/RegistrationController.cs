@@ -31,7 +31,7 @@ public class RegistrationController : ControllerBase {
             _db.Users.Add(user);
             await _db.SaveChangesAsync();
 
-            return Ok(new { success = true });
+            return Ok(new { success = true, productId = user.Id });
         } catch (Exception ex) {
             Console.WriteLine($"Error: {ex.Message}");
             return StatusCode(500, "Error in server!");

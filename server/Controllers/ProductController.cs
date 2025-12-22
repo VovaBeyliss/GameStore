@@ -14,10 +14,11 @@ public class ProductController : ControllerBase {
         _db = db;
     }
 
-    [HttpPost]
-    public async Task<IActionResult> ProductToDb([FromBody] ProductDto request, int id) {
+    [HttpPost("{id}")]
+    public async Task<IActionResult> AddProduct([FromBody] ProductDto request, [FromRoute] int id) {
         try {
-            var product = await _db.Products.FirstOrDefaultAsync(p => p.Name == request.Name && 
+            var product = await _db.Products.FirstOrDefaultAsync(p => p.ProductIdForUser == id && 
+                p.Name == request.Name && 
                 p.Description == request.Description && 
                 p.Price == request.Price);
 
@@ -26,6 +27,7 @@ public class ProductController : ControllerBase {
             } else {
                 var newProduct = new Product {
                     Count = 1,
+                    ProductIdForUser = id, 
                     Name = request.Name,
                     Description = request.Description,
                     Price = request.Price
@@ -43,12 +45,19 @@ public class ProductController : ControllerBase {
         }
     }
 
-    [HttpGet]
-    public async Task<IActionResult> GetProducts() {
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetProductsForId([FromRoute] int id) {
         try {
             var productsList = await _db.Products.ToListAsync();
+            var resultProducts = new List<Product>();
 
-            return Ok(new { success = true, products = productsList });
+            for (int i = 0; i < productsList.Count; i++) {
+                if (productsList[i].ProductIdForUser == id) {
+                    resultProducts.Add(productsList[i]);
+                }
+            }
+
+            return Ok(new { success = true, products = resultProducts });
         } catch (Exception ex) {
             Console.WriteLine($"Error: {ex.Message}");
             return StatusCode(500, "Error in server!");
