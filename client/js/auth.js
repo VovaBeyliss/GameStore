@@ -52,7 +52,8 @@ document.addEventListener("DOMContentLoaded", () => {
             })
             .then(data => {
                 if (data.success) {
-                    localStorage.setItem("userIdForData", String(data.userId));
+                    localStorage.setItem("userIdForNameAndEmail", String(data.userId));
+                    localStorage.setItem("userIdForShowProducts", String(data.userId));
                     location.href = "account.html";
                 }
             })

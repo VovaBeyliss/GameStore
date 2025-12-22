@@ -1,6 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
     let i = 0;
 
+    let userIdForAddingProductsToDb = localStorage.getItem("userIdForAddingProductsToDb");
+
     document.getElementById("keyboards-scroll").addEventListener("click", () => {
         document.querySelector(".keyboards-zone").scrollIntoView({
             behavior: 'smooth',
@@ -171,7 +173,7 @@ document.addEventListener("DOMContentLoaded", () => {
         i++;
         document.querySelector(".products-count").textContent = i;
 
-        fetch("http://localhost:5243/api/products", {
+        fetch(`http://localhost:5243/api/products/${userIdForAddingProductsToDb}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

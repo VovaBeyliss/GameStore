@@ -1,12 +1,17 @@
 document.addEventListener("DOMContentLoaded", () => {
-    let userIdForData = localStorage.getItem("userIdForData");
+    let userIdForNameAndEmail = localStorage.getItem("userIdForNameAndEmail");
+    let userIdForShowProducts = localStorage.getItem("userIdForShowProducts");
     let totalPrice = 0;
 
-    if (!userIdForData) {
+    if (!userIdForNameAndEmail) {
+        alert("Problem with your Id!");
+    }
+
+    if (!userIdForShowProducts) {
         alert("Problem with your Id!");
     }
     
-    fetch(`http://localhost:5243/api/account/${userIdForData}`)
+    fetch(`http://localhost:5243/api/account/${userIdForNameAndEmail}`)
         .then(response => {
             if (!response.ok) {
                 switch (response.status) {
@@ -38,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
             console.error(error);
         });
 
-    fetch(`http://localhost:5243/api/products/`)
+    fetch(`http://localhost:5243/api/products/${userIdForShowProducts}`)
         .then(response => {
             if (!response.ok) {
                 switch (response.status) {
