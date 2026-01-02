@@ -124,7 +124,8 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 
     document.getElementById("logout-btn").addEventListener("click", () => {
-        localStorage.removeItem("userIdForData");
+        localStorage.removeItem("userIdForNameAndEmail");
+        localStorage.removeItem("userIdForShowProducts");
         window.location.href = "index.html";
     })
 })

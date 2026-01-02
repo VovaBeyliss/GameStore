@@ -21,7 +21,7 @@ builder.Services.AddDbContext<AppDbContext>(options => {
 
 var app = builder.Build();
 
-app.UseMiddleware<HttpContextWriteMiddleware>();
+app.UseMiddleware<HttpContextWriteMiddleware>(); 
 
 app.UseCors("AllowAll");
 
