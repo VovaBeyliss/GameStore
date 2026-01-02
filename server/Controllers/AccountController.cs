@@ -1,23 +1,24 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using GameStore.Services.Interfaces;
+using GameStore.Services;
 using GameStore.Models;
-using GameStore.Data;
 
 namespace GameStore.Controllers;
 
 [ApiController]
 [Route("api/account")]
 public class AccountController : ControllerBase {
-    private readonly AppDbContext _db;
+    private readonly IUserService _userService;
 
-    public AccountController(AppDbContext db) {
-        _db = db;
+    public AccountController(IUserService userService) {
+        _userService = userService;
     }
 
     [HttpGet("{id}")]
     public async Task<IActionResult> GetUser([FromRoute] int id) {
         try {
-            var user = await _db.Users.FirstOrDefaultAsync(u => u.Id == id);
+            var user = await _userService.GetUserById(id);
 
             if (user != null) {
                 return Ok(new { success = true, username = user.Username, email = user.Email });

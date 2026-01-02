@@ -1,29 +1,28 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using GameStore.Services.Interfaces;
+using GameStore.Services;
 using GameStore.Models;
-using GameStore.Data;
+using GameStore.Dtos;
 
 namespace GameStore.Controllers;
 
 [ApiController]
 [Route("api/authorization")]
 public class AuthorizationController : ControllerBase {
-    private readonly AppDbContext _db;
+    private readonly IUserService _userService;
 
-    public AuthorizationController(AppDbContext db) {
-        _db = db;
+    public AuthorizationController(IUserService userService) {
+        _userService = userService;
     }
 
     [HttpPost]
     public async Task<IActionResult> Authorization([FromBody] AuthorizationDto request) {
         try {
-            var user = await _db.Users.FirstOrDefaultAsync(u => 
-                u.Username == request.Username &&
-                u.Password == request.Password && 
-                u.Email == request.Email);
+            var authId = await _userService.AuthorizationAsync(request);
 
-            if (user != null) {
-                return Ok(new { success = true, userId = user.Id });
+            if (authId != null) {
+                return Ok({ success = true, userId = authId });
             }
 
             return Unauthorized();
@@ -33,5 +32,3 @@ public class AuthorizationController : ControllerBase {
         }
     }
 }
-
-public record AuthorizationDto(string Username, string Email, string Password);

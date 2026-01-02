@@ -1,42 +1,25 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using GameStore.Services.Interfaces;
+using GameStore.Services;
 using GameStore.Models;
-using GameStore.Data;
+using GameStore.Dtos;
 
 namespace GameStore.Controllers;
 
 [ApiController]
 [Route("api/products")]
 public class ProductController : ControllerBase {
-    private readonly AppDbContext _db;
+    private readonly IProductService _productService;
 
-    public ProductController(AppDbContext db) {
-        _db = db;
+    public ProductController(IProductService productService) {
+        _productService = productService;
     }
 
     [HttpPost("{id}")]
     public async Task<IActionResult> AddProduct([FromBody] ProductDto request, [FromRoute] int id) {
         try {
-            var product = await _db.Products.FirstOrDefaultAsync(p => p.ProductIdForUser == id && 
-                p.Name == request.Name && 
-                p.Description == request.Description && 
-                p.Price == request.Price);
-
-            if (product != null) {
-                product.Count++;
-            } else {
-                var newProduct = new Product {
-                    Count = 1,
-                    ProductIdForUser = id, 
-                    Name = request.Name,
-                    Description = request.Description,
-                    Price = request.Price
-                };
-
-                _db.Products.Add(newProduct);
-            }
-
-            await _db.SaveChangesAsync();
+            await _productService.AddProduct(request, id);
                     
             return Ok(new { success = true });
         } catch (Exception ex) {
@@ -46,16 +29,9 @@ public class ProductController : ControllerBase {
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetProductsForId([FromRoute] int id) {
+    public async Task<IActionResult> GetProductsById([FromRoute] int id) {
         try {
-            var productsList = await _db.Products.ToListAsync();
-            var resultProducts = new List<Product>();
-
-            for (int i = 0; i < productsList.Count; i++) {
-                if (productsList[i].ProductIdForUser == id) {
-                    resultProducts.Add(productsList[i]);
-                }
-            }
+            var resultProducts = await _productService.GetProductsById(id);
 
             return Ok(new { success = true, products = resultProducts });
         } catch (Exception ex) {
@@ -64,5 +40,3 @@ public class ProductController : ControllerBase {
         }
     }
 }
-
-public record ProductDto(string Name, string Description, string Price);

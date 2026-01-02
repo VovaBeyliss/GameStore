@@ -1,10 +1,15 @@
 using Microsoft.EntityFrameworkCore;
 using GameStore.Data;
 using GameStore.Middlewares;
+using GameStore.Services;
+using GameStore.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
+
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IProductService, ProductService>();
 
 builder.Services.AddCors(options => 
 {
