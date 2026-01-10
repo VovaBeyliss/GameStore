@@ -1,17 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
-    let userIdForNameAndEmail = localStorage.getItem("userIdForNameAndEmail");
-    let userIdForShowProducts = localStorage.getItem("userIdForShowProducts");
+    let userIdForData = localStorage.getItem("userIdForData");
     let totalPrice = 0;
 
-    if (!userIdForNameAndEmail) {
-        alert("Problem with your Id!");
-    }
-
-    if (!userIdForShowProducts) {
+    if (!userIdForData) {
         alert("Problem with your Id!");
     }
     
-    fetch(`http://localhost:5243/api/account/${userIdForNameAndEmail}`)
+    fetch(`http://localhost:5243/api/account/${userIdForData}`)
         .then(response => {
             if (!response.ok) {
                 switch (response.status) {
@@ -43,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
             console.error(error);
         });
 
-    fetch(`http://localhost:5243/api/products/${userIdForShowProducts}`)
+    fetch(`http://localhost:5243/api/products/${userIdForData}`)
         .then(response => {
             if (!response.ok) {
                 switch (response.status) {
@@ -124,8 +119,6 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 
     document.getElementById("logout-btn").addEventListener("click", () => {
-        localStorage.removeItem("userIdForNameAndEmail");
-        localStorage.removeItem("userIdForShowProducts");
         window.location.href = "index.html";
     })
 })

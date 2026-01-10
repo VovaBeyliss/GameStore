@@ -52,8 +52,8 @@ document.addEventListener("DOMContentLoaded", () => {
             })
             .then(data => {
                 if (data.success) {
-                    localStorage.setItem("userIdForNameAndEmail", String(data.userId));
-                    localStorage.setItem("userIdForShowProducts", String(data.userId));
+                    localStorage.setItem("userIdForData", String(data.userId));
+                    localStorage.setItem("isAuth", "true");
                     location.href = "account.html";
                 }
             })

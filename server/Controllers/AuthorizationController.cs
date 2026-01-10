@@ -17,12 +17,12 @@ public class AuthorizationController : ControllerBase {
     }
 
     [HttpPost]
-    public async Task<IActionResult> Authorization([FromBody] AuthorizationDto request) {
+    public async Task<IActionResult> Authorization([FromBody] UserDto request) {
         try {
-            var authId = await _userService.AuthorizationAsync(request);
+            var userId = await _userService.AuthorizationAsync(request);
 
-            if (authId != null) {
-                return Ok({ success = true, userId = authId });
+            if (userId != null) {
+                return Ok(new { success = true, userId = userId });
             }
 
             return Unauthorized();

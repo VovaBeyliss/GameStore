@@ -1,7 +1,16 @@
 document.addEventListener("DOMContentLoaded", () => {
     let i = 0;
 
-    let userIdForAddingProductsToDb = localStorage.getItem("userIdForAddingProductsToDb");
+    let userIdForAddingProductsToDb; // = localStorage.getItem("userIdForAddingProductsToDb");
+
+    let isAuth = localStorage.getItem("isAuth");
+
+    if (isAuth == "true") {
+        userIdForAddingProductsToDb = localStorage.getItem("userIdForData");
+    } else {
+        userIdForAddingProductsToDb = localStorage.getItem("userIdForAddingProductsToDb");
+    }
+
 
     document.getElementById("keyboards-scroll").addEventListener("click", () => {
         document.querySelector(".keyboards-zone").scrollIntoView({

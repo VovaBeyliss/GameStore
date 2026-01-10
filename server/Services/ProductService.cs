@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using GameStore.Services.Interfaces;
+using GameStore.Models;
 using GameStore.Data;
 using GameStore.Dtos;
 

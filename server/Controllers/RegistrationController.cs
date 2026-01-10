@@ -17,12 +17,12 @@ public class RegistrationController : ControllerBase {
     }
 
     [HttpPost]
-    public async Task<IActionResult> Registration([FromBody] RegistrationDto request) {
+    public async Task<IActionResult> Registration([FromBody] UserDto request) {
         try {
             var userId = await _userService.RegisterAsync(request);
 
             if (userId != null) {
-                return Ok({ success = true, productId = userId });
+                return Ok(new { success = true, userId = userId });
             }
 
             return Conflict();

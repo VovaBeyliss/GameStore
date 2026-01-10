@@ -14,7 +14,7 @@ public class UserService : IUserService {
         _db = db;
     }
 
-    public async Task<int?> RegisterAsync(RegistrationDto request) {
+    public async Task<int?> RegisterAsync(UserDto request) {
         if (await _db.Users.AnyAsync(u => u.Username == request.Username || u.Email == request.Email)) {
             return null;
         }
@@ -32,7 +32,7 @@ public class UserService : IUserService {
         return user.Id;
     }
 
-    public async Task<int?> AuthorizationAsync(AuthorizationDto request) {
+    public async Task<int?> AuthorizationAsync(UserDto request) {
         var user = await _db.Users.FirstOrDefaultAsync(u => 
             u.Username == request.Username &&
             u.Password == request.Password && 
