@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    let userIdForData = localStorage.getItem("userIdForData");
+    let userIdForData = sessionStorage.getItem("userIdForData");
     let totalPrice = 0;
 
     if (!userIdForData) {
@@ -104,6 +104,12 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 
     document.getElementById("confirm-purchase")?.addEventListener("click", () => {
+        if (totalPrice == 0) {
+            alert("Please, choose something! You now have just 0 products!");
+
+            return;
+        }
+        
         alert(`Purchase confirmed! Thank you for using my web application. 
             This web application backend is coded with C# ASP.NET & EF CORE. 
             Your products will be delivered to you in idk days)

@@ -1,16 +1,15 @@
 document.addEventListener("DOMContentLoaded", () => {
     let i = 0;
 
-    let userIdForAddingProductsToDb; // = localStorage.getItem("userIdForAddingProductsToDb");
+    let userIdForAddingProductsToDb;
 
-    let isAuth = localStorage.getItem("isAuth");
+    let isAuth = sessionStorage.getItem("isAuth");
 
     if (isAuth == "true") {
-        userIdForAddingProductsToDb = localStorage.getItem("userIdForData");
+        userIdForAddingProductsToDb = sessionStorage.getItem("userIdForData");
     } else {
-        userIdForAddingProductsToDb = localStorage.getItem("userIdForAddingProductsToDb");
+        userIdForAddingProductsToDb = sessionStorage.getItem("userIdForAddingProductsToDb");
     }
-
 
     document.getElementById("keyboards-scroll").addEventListener("click", () => {
         document.querySelector(".keyboards-zone").scrollIntoView({
@@ -197,7 +196,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (!response.ok) {
                 switch (response.status) {
                     case 400:
-                        alert("Something wrong with request syntax, version of brawser and other. Reload a page or ask the programmer of this web-application!");
+                        alert("Can be: 1) Something wrong with request syntax, version of brawser and other. 2)(90%) You didn`t finish authorization ot registration. Please, do it no! Reload a page or ask the programmer of this web-application!");
                         break;
                     case 404:
                         alert("Server can be asleep. Reload a page or ask the programmer of this web-application!");

@@ -52,8 +52,8 @@ document.addEventListener("DOMContentLoaded", () => {
             })
             .then(data => {
                 if (data.success) {
-                    localStorage.setItem("userIdForData", String(data.userId));
-                    localStorage.setItem("isAuth", "true");
+                    sessionStorage.setItem("userIdForData", String(data.userId));
+                    sessionStorage.setItem("isAuth", "true");
                     location.href = "account.html";
                 }
             })

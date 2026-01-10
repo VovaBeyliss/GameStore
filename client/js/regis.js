@@ -67,8 +67,8 @@ document.addEventListener("DOMContentLoaded", () => {
             })
             .then(data => {
                 if (data.success) {
-                    localStorage.setItem("userIdForAddingProductsToDb", String(data.userId));
-                    localStorage.removeItem("isAuth");
+                    sessionStorage.setItem("userIdForAddingProductsToDb", String(data.userId));
+                    sessionStorage.removeItem("isAuth");
                     location.href = "index.html";
                     console.log("Success!");
                 }
