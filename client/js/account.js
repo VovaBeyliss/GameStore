@@ -108,10 +108,38 @@ document.addEventListener("DOMContentLoaded", () => {
             This web application backend is coded with C# ASP.NET & EF CORE. 
             Your products will be delivered to you in idk days)
             Total: $${totalPrice.toFixed(2)}`);
+
+        fetch(`http://localhost:5243/api/products/${userIdForData}`, {
+            method: "DELETE"
+        })
+        .then(response => {
+            if (!response.ok) {
+                switch (response.status) {
+                    case 400:
+                        alert("Something wrong with request syntax, version of brawser and other. Reload a page or ask the programmer of this web-application!");
+                        break;
+                    case 404:
+                        alert("Server can be asleep. Reload a page or ask the programmer of this web-application!");
+                        break;
+                    case 500:
+                        alert("Problem in server. Reload a page or ask the programmer of this web-application!");
+                        break;
+                }
+
+                return response.text().then(text => { throw new Error(text) });
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.success) {
+                console.log("Success!");
+            }
+        })
+        .catch(error => {
+            console.log("Error:", error);
+        })
             
         document.getElementById('purchase-modal').style.display = 'none';
-
-        location.href = "index.html";
     })
 
     document.getElementById("cancel-purchase")?.addEventListener("click", () => {

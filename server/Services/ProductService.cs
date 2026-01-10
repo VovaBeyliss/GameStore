@@ -49,4 +49,16 @@ public class ProductService : IProductService {
 
         return resultProducts;
     }
+
+    public async Task DeleteProductsById(int id) {
+        var productsList = await _db.Products.ToListAsync();
+
+        for (int i = 0; i < productsList.Count; i++) {
+            if (productsList[i].ProductIdForUser == id) {
+                _db.Products.Remove(productsList[i]);
+            }
+        }
+
+        await _db.SaveChangesAsync();
+    }
 }

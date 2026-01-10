@@ -39,4 +39,11 @@ public class ProductController : ControllerBase {
             return StatusCode(500, "Error in server!");
         }
     }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteProductsById([FromRoute] int id) {
+        await _productService.DeleteProductsById(id);
+
+        return Ok(new { success = true });
+    }
 }
