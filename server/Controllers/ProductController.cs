@@ -31,9 +31,7 @@ public class ProductController : ControllerBase {
     [HttpGet("{id}")]
     public async Task<IActionResult> GetProductsById([FromRoute] int id) {
         try {
-            var resultProducts = await _productService.GetProductsById(id);
-
-            return Ok(new { success = true, products = resultProducts });
+            return Ok(new { success = true, products = await _productService.GetProductsById(id) });
         } catch (Exception ex) {
             Console.WriteLine($"Error: {ex.Message}");
             return StatusCode(500, "Error in server!");
