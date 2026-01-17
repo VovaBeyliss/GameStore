@@ -38,13 +38,7 @@ public class UserService : IUserService {
             u.Password == request.Password && 
             u.Email == request.Email);
 
-        if (user != null) {
-            return user.Id;
-        }
-
-        return null;
-
-        // return user?.Id;
+        return user?.Id;
     }
 
     public async Task<User?> GetUserById(int id) {

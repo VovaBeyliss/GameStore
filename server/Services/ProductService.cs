@@ -38,14 +38,7 @@ public class ProductService : IProductService {
     }
 
     public async Task<List<Product>> GetProductsById(int id) {
-        var productsList = await _db.Products.ToListAsync();
-        var resultProducts = new List<Product>();
-
-        for (int i = 0; i < productsList.Count; i++) {
-            if (productsList[i].ProductIdForUser == id) {
-                resultProducts.Add(productsList[i]);
-            }
-        }
+        var resultProducts = await _db.Products.Where(p => p.ProductIdForUser == id).ToListAsync();
 
         return resultProducts;
     }
