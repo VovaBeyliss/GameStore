@@ -41,7 +41,5 @@ public class UserService : IUserService {
         return user?.Id;
     }
 
-    public async Task<User?> GetUserById(int id) {
-        return await _db.Users.FirstOrDefaultAsync(u => u.Id == id);
-    }
+    public async Task<User?> GetUserById(int id) => await _db.Users.FirstOrDefaultAsync(u => u.Id == id);
 }

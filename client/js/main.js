@@ -178,9 +178,6 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("astro-a50-button").addEventListener("click", () => addProductToAccount(AstroA50Gen4));
 
     function addProductToAccount(product) {
-        i++;
-        document.querySelector(".products-count").textContent = i;
-
         fetch(`http://localhost:5243/api/products/${userIdForAddingProductsToDb}`, {
             method: "POST",
             headers: {
@@ -214,6 +211,9 @@ document.addEventListener("DOMContentLoaded", () => {
             if (data.success) {
                 console.log("Success!");
             }
+
+            i++;
+            document.querySelector(".products-count").textContent = i;
         })
         .catch(error => {
             console.log(error);

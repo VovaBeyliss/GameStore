@@ -38,11 +38,7 @@ public class ProductService : IProductService {
         await _db.SaveChangesAsync();
     }
 
-    public async Task<List<Product>> GetProductsById(int id) {
-        var resultProducts = await _db.Products.Where(p => p.ProductIdForUser == id).ToListAsync();
-
-        return resultProducts;
-    }
+    public async Task<List<Product>> GetProductsById(int id) => await _db.Products.Where(p => p.ProductIdForUser == id).ToListAsync();
 
     public async Task DeleteProductsById(int id) {
         var productsList = await _db.Products.ToListAsync();
