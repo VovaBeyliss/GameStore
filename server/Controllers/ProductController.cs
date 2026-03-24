@@ -40,8 +40,13 @@ public class ProductController : ControllerBase {
 
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteProductsById([FromRoute] int id) {
-        await _productService.DeleteProductsById(id);
+        try {
+            await _productService.DeleteProductsById(id);
 
-        return Ok(new { success = true });
+            return Ok(new { success = true });
+        } catch (Exception ex) {
+            Console.WriteLine($"Error: {ex.Message}");
+            return StatusCode(500, "Error in server!");
+        }
     }
 }

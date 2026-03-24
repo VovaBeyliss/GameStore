@@ -1,7 +1,7 @@
 using System.Text;
 using System.Text.Json;
 
-// Requests/responses body writing and correct queue of requests/responses were made by AI!;
+// Requests/responses bodies writing and correct queue of requests/responses without any problems were made by AI!;
 
 namespace GameStore.Middlewares {
     public class HttpContextWriteMiddleware {
