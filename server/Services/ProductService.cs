@@ -40,7 +40,5 @@ public class ProductService : IProductService {
 
     public async Task<List<Product>> GetProductsById(int id) => await _db.Products.Where(p => p.ProductIdForUser == id).ToListAsync();
 
-    public async Task DeleteProductsById(int id) {
-        await _db.Products.Where(p => p.ProductIdForUser == id).ExecuteDeleteAsync();
-    }
+    public async Task DeleteProductsById(int id) => await _db.Products.Where(p => p.ProductIdForUser == id).ExecuteDeleteAsync();
 }
