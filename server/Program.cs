@@ -11,8 +11,7 @@ builder.Services.AddControllers();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 
-builder.Services.AddCors(options => 
-{
+builder.Services.AddCors(options => {
     options.AddPolicy("AllowAll", policy =>
         policy.WithOrigins("http://127.0.0.1:5500")
               .AllowAnyMethod()
