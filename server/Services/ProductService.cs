@@ -1,44 +1,21 @@
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using GameStore.Repositories.Interfaces;
 using GameStore.Services.Interfaces;
 using GameStore.Models;
-using GameStore.Data;
 using GameStore.Dtos;
-using System.Linq;
 
 namespace GameStore.Services;
 
 public class ProductService : IProductService {
-    private readonly AppDbContext _db; 
+    private readonly IProductRepository _productRepository; 
 
-    public ProductService(AppDbContext db) {
-        _db = db;
+    public ProductService(IProductRepository productRepository) {
+        _productRepository = productRepository;
     }
 
-    public async Task AddProduct(ProductDto request, int id) {
-        var product = await _db.Products.FirstOrDefaultAsync(p => p.ProductIdForUser == id && 
-            p.Name == request.Name && 
-            p.Description == request.Description && 
-            p.Price == request.Price);
+    public async Task AddProductAsync(ProductDto request, int id) => await _productRepository.AddProductAsync(request, id);
 
-        if (product != null) {
-            product.Count++;
-        } else {
-            var newProduct = new Product {
-                Count = 1,
-                ProductIdForUser = id, 
-                Name = request.Name,
-                Description = request.Description,
-                Price = request.Price
-            };
+    public async Task<List<Product>> GetProductsByIdAsync(int id) => await _productRepository.GetProductsByIdAsync(id);
 
-            _db.Products.Add(newProduct);
-        }
-
-        await _db.SaveChangesAsync();
-    }
-
-    public async Task<List<Product>> GetProductsById(int id) => await _db.Products.Where(p => p.ProductIdForUser == id).ToListAsync();
-
-    public async Task DeleteProductsById(int id) => await _db.Products.Where(p => p.ProductIdForUser == id).ExecuteDeleteAsync();
+    public async Task DeleteProductsByIdAsync(int id) => await _productRepository.DeleteProductsByIdAsync(id);
 }

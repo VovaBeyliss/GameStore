@@ -1,8 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using GameStore.Data;
 using GameStore.Middlewares;
-using GameStore.Services;
+using GameStore.Repositories.Interfaces;
+using GameStore.Repositories;
 using GameStore.Services.Interfaces;
+using GameStore.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +12,9 @@ builder.Services.AddControllers();
 
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IProductService, ProductService>();
+
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 builder.Services.AddCors(options => {
     options.AddPolicy("AllowAll", policy =>

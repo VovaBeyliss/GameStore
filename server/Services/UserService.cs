@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
+using GameStore.Repositories.Interfaces;
 using GameStore.Services.Interfaces;
 using GameStore.Models;
 using GameStore.Data;
@@ -8,38 +9,15 @@ using GameStore.Dtos;
 namespace GameStore.Services;
 
 public class UserService : IUserService {
-    private readonly AppDbContext _db; 
+    private readonly IUserRepository _userRepository; 
 
-    public UserService(AppDbContext db) {
-        _db = db;
+    public UserService(IUserRepository userRepository) {
+        _userRepository = userRepository;
     }
 
-    public async Task<int?> RegisterAsync(UserDto request) {
-        if (await _db.Users.AnyAsync(u => u.Username == request.Username || u.Email == request.Email)) {
-            return null;
-        }
+    public async Task<int?> RegisterAsync(UserDto request) =>  await _userRepository.RegisterAsync(request);
 
-        var user = new User { 
-            Username = request.Username,
-            Email = request.Email,
-            Password = request.Password,
-            Photopath = "photopath"
-        };
+    public async Task<int?> AuthorizationAsync(UserDto request) => await _userRepository.AuthorizationAsync(request);
 
-        _db.Users.Add(user);
-        await _db.SaveChangesAsync();
-
-        return user.Id;
-    }
-
-    public async Task<int?> AuthorizationAsync(UserDto request) {
-        var user = await _db.Users.FirstOrDefaultAsync(u => 
-            u.Username == request.Username &&
-            u.Password == request.Password && 
-            u.Email == request.Email);
-
-        return user?.Id;
-    }
-
-    public async Task<User?> GetUserById(int id) => await _db.Users.FirstOrDefaultAsync(u => u.Id == id);
+    public async Task<User?> GetUserByIdAsync(int id) => await _userRepository.GetUserByIdAsync(id);
 }

@@ -18,7 +18,7 @@ public class AccountController : ControllerBase {
     [HttpGet("{id}")]
     public async Task<IActionResult> GetUser([FromRoute] int id) {
         try {
-            var user = await _userService.GetUserById(id);
+            var user = await _userService.GetUserByIdAsync(id);
 
             if (user != null) {
                 return Ok(new { success = true, username = user.Username, email = user.Email });

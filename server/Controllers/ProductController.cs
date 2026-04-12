@@ -19,7 +19,7 @@ public class ProductController : ControllerBase {
     [HttpPost("{id}")]
     public async Task<IActionResult> AddProduct([FromBody] ProductDto request, [FromRoute] int id) {
         try {
-            await _productService.AddProduct(request, id);
+            await _productService.AddProductAsync(request, id);
                     
             return Ok(new { success = true });
         } catch (Exception ex) {
@@ -31,7 +31,7 @@ public class ProductController : ControllerBase {
     [HttpGet("{id}")]
     public async Task<IActionResult> GetProductsById([FromRoute] int id) {
         try {
-            return Ok(new { success = true, products = await _productService.GetProductsById(id) });
+            return Ok(new { success = true, products = await _productService.GetProductsByIdAsync(id) });
         } catch (Exception ex) {
             Console.WriteLine($"Error: {ex.Message}");
             return StatusCode(500, "Error in server!");
@@ -41,7 +41,7 @@ public class ProductController : ControllerBase {
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteProductsById([FromRoute] int id) {
         try {
-            await _productService.DeleteProductsById(id);
+            await _productService.DeleteProductsByIdAsync(id);
 
             return Ok(new { success = true });
         } catch (Exception ex) {
