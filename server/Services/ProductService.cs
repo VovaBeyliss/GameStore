@@ -1,6 +1,7 @@
-using Microsoft.EntityFrameworkCore;
 using GameStore.Repositories.Interfaces;
 using GameStore.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
+using GameStore.Extensions;
 using GameStore.Models;
 using GameStore.Dtos;
 
@@ -13,9 +14,26 @@ public class ProductService : IProductService {
         _productRepository = productRepository;
     }
 
-    public async Task AddProductAsync(ProductDto request, int id) => await _productRepository.AddProductAsync(request, id);
+    public async Task AddOrUpdateProductAsync(ProductDto request, int userId) {  
+        var product = await _productRepository.GetProductByUserIdAndDetailsAsync(userId, request.Name, request.Description, request.Price);
 
-    public async Task<List<Product>> GetProductsByIdAsync(int id) => await _productRepository.GetProductsByIdAsync(id);
+        if (product == null) {
+            var newProduct = new Product {
+                ProductCount = 1,
+                ProductIdForUser = userId,
+                Name = request.Name,
+                Description = request.Description,
+                Price = request.Price
+            };
 
-    public async Task DeleteProductsByIdAsync(int id) => await _productRepository.DeleteProductsByIdAsync(id);
+            await _productRepository.AddProductAsync(newProduct);
+        } else {
+            product.ProductCount++;
+            await _productRepository.UpdateProductAsync(product);
+        }
+    }
+
+    public async Task<List<Product>> GetUserProductsAsync(int id) => await _productRepository.GetProductsByUserIdAsync(id).OrderByAsync(p => p.Id);
+
+    public async Task DeleteUserProductsAsync(int id) => await _productRepository.DeleteProductsByUserIdAsync(id);
 }

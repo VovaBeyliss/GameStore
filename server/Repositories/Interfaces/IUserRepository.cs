@@ -1,11 +1,10 @@
 using System.Threading.Tasks;
 using GameStore.Models;
-using GameStore.Dtos;
 
 namespace GameStore.Repositories.Interfaces;
 
 public interface IUserRepository {
-    Task<int?> RegisterAsync(UserDto request);
-    Task<int?> AuthorizationAsync(UserDto request);
-    Task<User?> GetUserByIdAsync(int id);
+    Task AddUserAsync(User user);
+    Task<User?> GetUserByDetails(string username, string password, string email);
+    Task<User?> GetUserByIdAsync(int userId);
 }

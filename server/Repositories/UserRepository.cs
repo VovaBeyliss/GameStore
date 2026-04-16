@@ -14,32 +14,19 @@ public class UserRepository : IUserRepository {
         _db = db;
     }
 
-    public async Task<int?> RegisterAsync(UserDto request) {
-        if (await _db.Users.AnyAsync(u => u.Username == request.Username || u.Email == request.Email)) {
-            return null;
-        }
-
-        var user = new User { 
-            Username = request.Username,
-            Email = request.Email,
-            Password = request.Password,
-            Photopath = "photopath"
-        };
-
-        _db.Users.Add(user);
+    public async Task AddUserAsync(User user) {
+        await _db.Users.AddAsync(user);
         await _db.SaveChangesAsync();
-
-        return user.Id;
     }
 
-    public async Task<int?> AuthorizationAsync(UserDto request) {
+    public async Task<User?> GetUserByDetails(string username, string password, string email) {
         var user = await _db.Users.FirstOrDefaultAsync(u => 
-            u.Username == request.Username &&
-            u.Password == request.Password && 
-            u.Email == request.Email);
+            u.Username == username &&
+            u.Password == password && 
+            u.Email == email);
 
-        return user?.Id;
+        return user;
     }
 
-    public async Task<User?> GetUserByIdAsync(int id) => await _db.Users.FirstOrDefaultAsync(u => u.Id == id);
+    public async Task<User?> GetUserByIdAsync(int userId) => await _db.Users.FirstOrDefaultAsync(u => u.Id == userId);
 }

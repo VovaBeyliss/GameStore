@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using GameStore.Services.Interfaces;
 using GameStore.Models;
 using GameStore.Data;
-using GameStore.Dtos;
 
 namespace GameStore.Repositories;
 
@@ -14,30 +13,25 @@ public class ProductRepository : IProductRepository {
         _db = db;
     }
 
-    public async Task AddProductAsync(ProductDto request, int id) {
-        var product = await _db.Products.FirstOrDefaultAsync(p => p.ProductIdForUser == id && 
-            p.Name == request.Name && 
-            p.Description == request.Description && 
-            p.Price == request.Price);
+    public async Task<Product?> GetProductByUserIdAndDetailsAsync(int userId, string name, string description, string price) {
+        return await _db.Products.FirstOrDefaultAsync(p => p.ProductIdForUser == userId
+                                                   && p.Name == name 
+                                                   && p.Description == description 
+                                                   && p.Price == price
+                                 );
+    }
 
-        if (product != null) {
-            product.Count++;
-        } else {
-            var newProduct = new Product {
-                Count = 1,
-                ProductIdForUser = id, 
-                Name = request.Name,
-                Description = request.Description,
-                Price = request.Price
-            };
-
-            _db.Products.Add(newProduct);
-        }
-
+    public async Task AddProductAsync(Product product) {
+        await _db.Products.AddAsync(product);
         await _db.SaveChangesAsync();
     }
 
-    public async Task<List<Product>> GetProductsByIdAsync(int id) => await _db.Products.Where(p => p.ProductIdForUser == id).ToListAsync();
+    public async Task UpdateProductAsync(Product product) {
+        _db.Products.Update(product);
+        await _db.SaveChangesAsync();
+    }
 
-    public async Task DeleteProductsByIdAsync(int id) => await _db.Products.Where(p => p.ProductIdForUser == id).ExecuteDeleteAsync();
+    public async Task<List<Product>> GetProductsByUserIdAsync(int id) => await _db.Products.Where(p => p.ProductIdForUser == id).ToListAsync();
+
+    public async Task DeleteProductsByUserIdAsync(int id) => await _db.Products.Where(p => p.ProductIdForUser == id).ExecuteDeleteAsync();
 }

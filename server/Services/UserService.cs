@@ -15,9 +15,30 @@ public class UserService : IUserService {
         _userRepository = userRepository;
     }
 
-    public async Task<int?> RegisterAsync(UserDto request) =>  await _userRepository.RegisterAsync(request);
+    public async Task<int?> RegisterAsync(UserDto request) {
+        var existingUser = await _userRepository.GetUserByDetails(request.Username, request.Password, request.Email);
 
-    public async Task<int?> AuthorizationAsync(UserDto request) => await _userRepository.AuthorizationAsync(request);
+        if (existingUser != null) {
+            return null;
+        }
 
-    public async Task<User?> GetUserByIdAsync(int id) => await _userRepository.GetUserByIdAsync(id);
+        var newUser = new User {
+            Username = request.Username,
+            Email = request.Email,
+            Password = request.Password,
+            Photopath = "image.jpg"
+        };
+
+        await _userRepository.AddUserAsync(newUser);
+
+        return newUser.Id;
+    }
+
+    public async Task<int?> AuthorizationAsync(UserDto request) {
+        var user = await _userRepository.GetUserByDetails(request.Username, request.Password, request.Email);
+
+        return user?.Id;
+    }
+
+    public async Task<User?> GetUserAsync(int userId) => await _userRepository.GetUserByIdAsync(userId);
 }

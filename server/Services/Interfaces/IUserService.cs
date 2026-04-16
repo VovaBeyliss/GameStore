@@ -7,5 +7,5 @@ namespace GameStore.Services.Interfaces;
 public interface IUserService {
     Task<int?> RegisterAsync(UserDto request);
     Task<int?> AuthorizationAsync(UserDto request);
-    Task<User?> GetUserByIdAsync(int id);
+    Task<User?> GetUserAsync(int userId);
 }

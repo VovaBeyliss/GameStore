@@ -5,7 +5,9 @@ using GameStore.Dtos;
 namespace GameStore.Repositories.Interfaces;
 
 public interface IProductRepository {
-    Task AddProductAsync(ProductDto request, int id);
-    Task<List<Product>> GetProductsByIdAsync(int id);
-    Task DeleteProductsByIdAsync(int id);
+    Task<Product?> GetProductByUserIdAndDetailsAsync(int userId, string name, string description, string price);
+    Task AddProductAsync(Product product);
+    Task UpdateProductAsync(Product product);
+    Task<List<Product>> GetProductsByUserIdAsync(int userId);
+    Task DeleteProductsByUserIdAsync(int userId);
 }

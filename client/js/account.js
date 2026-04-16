@@ -66,14 +66,14 @@ document.addEventListener("DOMContentLoaded", () => {
             if (data.success && data.products && data.products.length > 0) {
                 data.products.forEach(product => {
                     let card = document.createElement("div");
-                    totalPrice += parseFloat(product.price.substring(1)) * parseFloat(product.count);
+                    totalPrice += parseFloat(product.price.substring(1)) * parseFloat(product.productCount);
                     card.className = "product-card";
                     card.innerHTML = `
                         <h3 class="product-name">${product.name || "Unnamed Product"}</h3>
                         <p class="product-description">${product.description || "No description available"}</p>
                         <div class="product-details">
                             <span class="product-price">${product.price || "0.00"}</span>
-                            <span class="product-count">Quantity: ${product.count || 1}</span>
+                            <span class="product-count">Quantity: ${product.productCount || 1}</span>
                         </div>
                     `;
                     container.appendChild(card);
@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
         })
 
     document.getElementById("buy-all-btn")?.addEventListener("click", () => {
-        document.getElementById('total-price').textContent = `$${totalPrice.toFixed(2)}`;
+        document.getElementById('total-price').textContent = `${totalPrice.toFixed(2)}`;
         document.getElementById('purchase-modal').style.display = 'flex';
     })
 
