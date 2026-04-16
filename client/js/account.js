@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
         })
 
     document.getElementById("buy-all-btn")?.addEventListener("click", () => {
-        document.getElementById('total-price').textContent = `${totalPrice.toFixed(2)}`;
+        document.getElementById('total-price').textContent = `$${totalPrice.toFixed(2)}`;
         document.getElementById('purchase-modal').style.display = 'flex';
     })
 
