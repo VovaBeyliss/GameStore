@@ -25,7 +25,6 @@ builder.Services.AddCors(options => {
 
 builder.Services.AddDbContext<AppDbContext>(options => {
     options.UseSqlite("Data Source=GameStore.db");
-    options.EnableSensitiveDataLogging();
 });
 
 var app = builder.Build();
