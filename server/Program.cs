@@ -1,10 +1,10 @@
-using Microsoft.EntityFrameworkCore;
-using GameStore.Data;
-using GameStore.Middlewares;
 using GameStore.Repositories.Interfaces;
-using GameStore.Repositories;
 using GameStore.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
+using GameStore.Repositories;
+using GameStore.Middlewares;
 using GameStore.Services;
+using GameStore.Data; 
 
 var builder = WebApplication.CreateBuilder(args);
 
