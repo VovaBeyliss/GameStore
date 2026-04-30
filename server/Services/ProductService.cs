@@ -14,16 +14,16 @@ public class ProductService : IProductService {
         _productRepository = productRepository;
     }
 
-    public async Task AddOrUpdateProductAsync(ProductDto request, int userId) {  
-        var product = await _productRepository.GetProductByUserIdAndDetailsAsync(userId, request.Name, request.Description, request.Price);
+    public async Task AddOrUpdateProductAsync(ProductDto dto, int userId) {  
+        var product = await _productRepository.GetProductByUserIdAndDetailsAsync(userId, dto.Name, dto.Description, dto.Price);
 
         if (product == null) {
             var newProduct = new Product {
                 ProductCount = 1,
                 ProductIdForUser = userId,
-                Name = request.Name,
-                Description = request.Description,
-                Price = request.Price
+                Name = dto.Name,
+                Description = dto.Description,
+                Price = dto.Price
             };
 
             await _productRepository.AddProductAsync(newProduct);

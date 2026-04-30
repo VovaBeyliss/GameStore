@@ -5,7 +5,7 @@ using GameStore.Dtos;
 namespace GameStore.Services.Interfaces;
 
 public interface IProductService {
-    Task AddOrUpdateProductAsync(ProductDto request, int id);
+    Task AddOrUpdateProductAsync(ProductDto dto, int id);
     Task<List<Product>> GetUserProductsAsync(int id);
     Task DeleteUserProductsAsync(int id);
 }

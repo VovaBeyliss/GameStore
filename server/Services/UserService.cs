@@ -1,7 +1,8 @@
-using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
 using GameStore.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using GameStore.Services.Interfaces;
+using System.Threading.Tasks;
+using GameStore.Extensions;
 using GameStore.Models;
 using GameStore.Data;
 using GameStore.Dtos;
@@ -15,17 +16,17 @@ public class UserService : IUserService {
         _userRepository = userRepository;
     }
 
-    public async Task<int?> RegisterAsync(UserDto request) {
-        var existingUser = await _userRepository.GetUserByDetails(request.Username, request.Password, request.Email);
+    public async Task<int?> RegisterAsync(UserDto dto) {
+        var existingUser = await _userRepository.GetUserByDetails(dto.Username, dto.Password, dto.Email);
 
         if (existingUser != null) {
             return null;
         }
 
         var newUser = new User {
-            Username = request.Username,
-            Email = request.Email,
-            Password = request.Password,
+            Username = dto.Username,
+            Email = dto.Email,
+            Password = dto.Password,
             Photopath = "image.jpg"
         };
 
@@ -34,11 +35,11 @@ public class UserService : IUserService {
         return newUser.Id;
     }
 
-    public async Task<int?> AuthorizationAsync(UserDto request) {
-        var user = await _userRepository.GetUserByDetails(request.Username, request.Password, request.Email);
+    public async Task<int?> AuthorizationAsync(UserDto dto) {
+        var user = await _userRepository.GetUserByDetails(dto.Username, dto.Password, dto.Email);
 
         return user?.Id;
     }
 
-    public async Task<User?> GetUserAsync(int userId) => await _userRepository.GetUserByIdAsync(userId);
+    public async Task<UserDto?> GetUserAsync(int userId) => (await _userRepository.GetUserByIdAsync(userId))?.ToUserDto();
 }
