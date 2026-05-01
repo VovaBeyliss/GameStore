@@ -12,9 +12,7 @@ namespace GameStore.Controllers;
 public class ProductController : ControllerBase {
     private readonly IProductService _productService;
 
-    public ProductController(IProductService productService) {
-        _productService = productService;
-    }
+    public ProductController(IProductService productService) => _productService = productService;
 
     [HttpPost("{id}")]
     public async Task<IActionResult> AddOrUpdateProduct([FromBody] ProductDto request, [FromRoute] int id) {

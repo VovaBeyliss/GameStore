@@ -10,12 +10,13 @@ namespace GameStore.Services;
 public class ProductService : IProductService {
     private readonly IProductRepository _productRepository; 
 
-    public ProductService(IProductRepository productRepository) {
-        _productRepository = productRepository;
-    }
+    public ProductService(IProductRepository productRepository) => _productRepository = productRepository;
 
     public async Task AddOrUpdateProductAsync(ProductDto dto, int userId) {  
-        var product = await _productRepository.GetProductByUserIdAndDetailsAsync(userId, dto.Name, dto.Description, dto.Price);
+        var product = await _productRepository.GetProductByUserIdAndDetailsAsync(p => p.ProductIdForUser == userId && 
+                                                                                 p.Name == dto.Name && 
+                                                                                 p.Description == dto.Description && 
+                                                                                 p.Price == dto.Price);
 
         if (product == null) {
             var newProduct = new Product {

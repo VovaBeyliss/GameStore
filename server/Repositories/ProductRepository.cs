@@ -1,6 +1,7 @@
 using GameStore.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using GameStore.Services.Interfaces;
+using System.Linq.Expressions;
 using GameStore.Models;
 using GameStore.Data;
 
@@ -9,17 +10,9 @@ namespace GameStore.Repositories;
 public class ProductRepository : IProductRepository {
     private readonly AppDbContext _db;
 
-    public ProductRepository(AppDbContext db) {
-        _db = db;
-    }
+    public ProductRepository(AppDbContext db) => _db = db;
 
-    public async Task<Product?> GetProductByUserIdAndDetailsAsync(int userId, string name, string description, string price) {
-        return await _db.Products.FirstOrDefaultAsync(p => p.ProductIdForUser == userId
-                                                   && p.Name == name 
-                                                   && p.Description == description 
-                                                   && p.Price == price
-                                 );
-    }
+    public async Task<Product?> GetProductByUserIdAndDetailsAsync(Expression<Func<Product, bool>> predicate) => await _db.Products.FirstOrDefaultAsync(predicate);
 
     public async Task AddProductAsync(Product product) {
         await _db.Products.AddAsync(product);

@@ -12,12 +12,10 @@ namespace GameStore.Controllers;
 public class AuthorizationController : ControllerBase {
     private readonly IUserService _userService;
 
-    public AuthorizationController(IUserService userService) {
-        _userService = userService;
-    }
+    public AuthorizationController(IUserService userService) => _userService = userService;
 
     [HttpPost]
-    public async Task<IActionResult> Authorization([FromBody] UserDto request) {
+    public async Task<IActionResult> Authorize([FromBody] UserDto request) {
         try {
             var userId = await _userService.AuthorizationAsync(request);
 

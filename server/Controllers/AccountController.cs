@@ -11,9 +11,7 @@ namespace GameStore.Controllers;
 public class AccountController : ControllerBase {
     private readonly IUserService _userService;
 
-    public AccountController(IUserService userService) {
-        _userService = userService;
-    }
+    public AccountController(IUserService userService) => _userService = userService;
 
     [HttpGet("{id}")]
     public async Task<IActionResult> GetUser([FromRoute] int id) {

@@ -12,12 +12,12 @@ namespace GameStore.Services;
 public class UserService : IUserService {
     private readonly IUserRepository _userRepository; 
 
-    public UserService(IUserRepository userRepository) {
-        _userRepository = userRepository;
-    }
+    public UserService(IUserRepository userRepository) => _userRepository = userRepository;
 
     public async Task<int?> RegisterAsync(UserDto dto) {
-        var existingUser = await _userRepository.GetUserByDetails(dto.Username, dto.Password, dto.Email);
+        var existingUser = await _userRepository.GetUserByDetails(u => u.Username == dto.Username && 
+                                                          u.Email == dto.Email && 
+                                                          u.Password == dto.Password);
 
         if (existingUser != null) {
             return null;
@@ -36,7 +36,9 @@ public class UserService : IUserService {
     }
 
     public async Task<int?> AuthorizationAsync(UserDto dto) {
-        var user = await _userRepository.GetUserByDetails(dto.Username, dto.Password, dto.Email);
+        var user = await _userRepository.GetUserByDetails(u => u.Username == dto.Username && 
+                                                          u.Email == dto.Email && 
+                                                          u.Password == dto.Password);
 
         return user?.Id;
     }
