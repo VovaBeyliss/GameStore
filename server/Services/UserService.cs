@@ -43,5 +43,7 @@ public class UserService : IUserService {
         return user?.Id;
     }
 
-    public async Task<UserDto?> GetUserAsync(int userId) => await _userRepository.GetUserByIdAsync(userId)?.ToUserDtoAsync();
+    public async Task<UserDto?> GetUserAsync(int userId) {
+        return (await _userRepository.GetUserByIdAsync(userId))?.ToUserDto();
+    } 
 }

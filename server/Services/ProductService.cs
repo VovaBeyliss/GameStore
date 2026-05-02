@@ -20,7 +20,7 @@ public class ProductService : IProductService {
 
         if (product == null) {
             var newProduct = new Product {
-                ProductCount = 1,
+                Quantity = 1,
                 ProductIdForUser = userId,
                 Name = dto.Name,
                 Description = dto.Description,
@@ -29,12 +29,12 @@ public class ProductService : IProductService {
 
             await _productRepository.AddProductAsync(newProduct);
         } else {
-            product.ProductCount++;
+            product.Quantity++;
             await _productRepository.UpdateProductAsync(product);
         }
     }
 
-    public async Task<List<Product>> GetUserProductsAsync(int id) => await _productRepository.GetProductsByUserIdAsync(id).OrderByAsync(p => p.Id);
+    public async Task<List<Product>> GetUserProductsAsync(int id) => (await _productRepository.GetProductsByUserIdAsync(id)).OrderByDescending(p => p.Quantity).ToList();
 
     public async Task DeleteUserProductsAsync(int id) => await _productRepository.DeleteProductsByUserIdAsync(id);
 }
