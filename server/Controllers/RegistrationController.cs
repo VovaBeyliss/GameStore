@@ -26,7 +26,7 @@ public class RegistrationController : ControllerBase {
             return Conflict();
         } catch (Exception ex) {
             Console.WriteLine($"Error: {ex.Message}");
-            return StatusCode(500, "Error in server!");
+            return StatusCode(500);
         }
     }
 }

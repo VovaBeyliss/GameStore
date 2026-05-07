@@ -32,7 +32,7 @@ public class ProductController : ControllerBase {
             return Ok(new { success = true, products = await _productService.GetUserProductsAsync(id) });
         } catch (Exception ex) {
             Console.WriteLine($"Error: {ex.Message}");
-            return StatusCode(500, "Error in server!");
+            return StatusCode(500);
         }
     }
 

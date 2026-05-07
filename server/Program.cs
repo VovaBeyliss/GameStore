@@ -17,11 +17,13 @@ builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 builder.Services.AddCors(options => {
-    options.AddPolicy("AllowAll", policy =>
+    options.AddPolicy("AllowAll", policy => {
         policy.WithOrigins("http://127.0.0.1:5500")
               .AllowAnyMethod()
-              .AllowAnyHeader());
+              .AllowAnyHeader();
+    });
 });
+
 
 builder.Services.AddDbContext<AppDbContext>(options => {
     options.UseSqlite("Data Source=GameStore.db");
