@@ -1,8 +1,5 @@
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using GameStore.Services.Interfaces;
-using GameStore.Services;
-using GameStore.Models;
+using Microsoft.AspNetCore.Mvc;
 using GameStore.Dtos;
 
 namespace GameStore.Controllers;
@@ -15,7 +12,7 @@ public class ProductController : ControllerBase {
     public ProductController(IProductService productService) => _productService = productService;
 
     [HttpPost("{id}")]
-    public async Task<IActionResult> AddOrUpdateProduct([FromBody] ProductDto request, [FromRoute] int id) {
+    public async Task<IActionResult> AddOrUpdateProduct([FromBody] AddProductDto request, [FromRoute] int id) {
         try {
             await _productService.AddOrUpdateProductAsync(request, id);
                     

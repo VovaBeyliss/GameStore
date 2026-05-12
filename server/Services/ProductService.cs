@@ -12,7 +12,7 @@ public class ProductService : IProductService {
 
     public ProductService(IProductRepository productRepository) => _productRepository = productRepository;
 
-    public async Task AddOrUpdateProductAsync(ProductDto dto, int userId) {  
+    public async Task AddOrUpdateProductAsync(AddProductDto dto, int userId) {  
         var product = await _productRepository.GetProductByUserIdAndDetailsAsync(p => p.ProductIdForUser == userId && 
                                                                                  p.Name == dto.Name && 
                                                                                  p.Description == dto.Description && 
@@ -34,7 +34,9 @@ public class ProductService : IProductService {
         }
     }
 
-    public async Task<List<Product>> GetUserProductsAsync(int id) => (await _productRepository.GetProductsByUserIdAsync(id)).OrderByDescending(p => p.Quantity).ToList();
+    public async Task<List<GetProductDto>> GetUserProductsAsync(int id) => (await _productRepository.GetProductsByUserIdAsync(id)).Select(p => p.ToProductDto())
+                                                                                                                                  .OrderByDescending(p => p.Quantity)
+                                                                                                                                  .ToList();
 
     public async Task DeleteUserProductsAsync(int id) => await _productRepository.DeleteProductsByUserIdAsync(id);
 }

@@ -1,8 +1,6 @@
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using GameStore.Services.Interfaces;
-using GameStore.Services;
-using GameStore.Models;
+using Microsoft.AspNetCore.Mvc;
+using GameStore.Dtos;
 
 namespace GameStore.Controllers;
 
