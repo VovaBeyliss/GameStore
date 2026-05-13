@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (is_valid) {
             // let avatarPath = "img/avatars/" + avatarInput.files[0].name;
 
-            fetch("http://localhost:5243/api/register", {
+            fetch("http://localhost:5243/api/users/regis", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

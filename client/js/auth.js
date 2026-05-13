@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         if (is_valid) {
-            fetch("http://localhost:5243/api/authorization" ,{
+            fetch("http://localhost:5243/api/users/autho" ,{
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

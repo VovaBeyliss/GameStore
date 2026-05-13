@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
         alert("Problem with your Id!");
     }
     
-    fetch(`http://localhost:5243/api/account/${userIdForData}`)
+    fetch(`http://localhost:5243/api/users/${userIdForData}`)
         .then(response => {
             if (!response.ok) {
                 switch (response.status) {
