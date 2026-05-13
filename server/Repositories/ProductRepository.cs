@@ -24,7 +24,7 @@ public class ProductRepository : IProductRepository {
         await _db.SaveChangesAsync();
     }
 
-    public async Task<List<Product>> GetProductsByUserIdAsync(int id) => await _db.Products.Where(p => p.ProductIdForUser == id).ToListAsync();
+    public async Task<List<Product>> GetProductsByUserIdAsync(int id) => await _db.Products.Where(p => p.UserId == id).ToListAsync();
 
-    public async Task DeleteProductsByUserIdAsync(int id) => await _db.Products.Where(p => p.ProductIdForUser == id).ExecuteDeleteAsync();
+    public async Task DeleteProductsByUserIdAsync(int id) => await _db.Products.Where(p => p.UserId == id).ExecuteDeleteAsync();
 }

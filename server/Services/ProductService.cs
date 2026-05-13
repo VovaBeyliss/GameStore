@@ -13,7 +13,7 @@ public class ProductService : IProductService {
     public ProductService(IProductRepository productRepository) => _productRepository = productRepository;
 
     public async Task AddOrUpdateProductAsync(AddProductDto dto, int userId) {  
-        var product = await _productRepository.GetProductByUserIdAndDetailsAsync(p => p.ProductIdForUser == userId && 
+        var product = await _productRepository.GetProductByUserIdAndDetailsAsync(p => p.UserId == userId && 
                                                                                  p.Name == dto.Name && 
                                                                                  p.Description == dto.Description && 
                                                                                  p.Price == dto.Price);
@@ -21,7 +21,7 @@ public class ProductService : IProductService {
         if (product == null) {
             var newProduct = new Product {
                 Quantity = 1,
-                ProductIdForUser = userId,
+                UserId = userId,
                 Name = dto.Name,
                 Description = dto.Description,
                 Price = dto.Price
