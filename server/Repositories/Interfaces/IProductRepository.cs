@@ -9,6 +9,6 @@ public interface IProductRepository {
     Task<Product?> GetProductByUserIdAndDetailsAsync(Expression<Func<Product, bool>> predicate);
     Task AddProductAsync(Product product);
     Task UpdateProductAsync(Product product);
-    Task<List<Product>> GetProductsByUserIdAsync(int userId);
-    Task DeleteProductsByUserIdAsync(int userId);
+    Task<List<Product>> GetProductsByUserIdAsync(int id);
+    Task DeleteProductsByUserIdAsync(int id);
 }

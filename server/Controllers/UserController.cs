@@ -9,17 +9,15 @@ namespace GameStore.Controllers;
 public class UserController : ControllerBase {
     private readonly IUserService _userService;
 
-    public UserController(IUserService userService) {
-        _userService = userService;
-    }
+    public UserController(IUserService userService) => _userService = userService;
 
     [HttpPost("regis")]
     public async Task<IActionResult> Register([FromBody] UserDto request) {
         try {
-            var userId = await _userService.RegisterAsync(request);
+            var id = await _userService.RegisterAsync(request);
 
-            if (userId != null) {
-                return Ok(new { success = true, userId = userId });
+            if (id != null) {
+                return Ok(new { success = true, userId = id });
             }
 
             return Conflict();
@@ -32,7 +30,7 @@ public class UserController : ControllerBase {
     [HttpPost("autho")]
     public async Task<IActionResult> Authorize([FromBody] UserDto request) {
         try {
-            var userId = await _userService.AuthorizationAsync(request);
+            var userId = await _userService.AuthorizeAsync(request);
 
             if (userId != null) {
                 return Ok(new { success = true, userId = userId });

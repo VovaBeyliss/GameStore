@@ -19,5 +19,5 @@ public class UserRepository : IUserRepository {
 
     public async Task<User?> GetUserByDetails(Expression<Func<User, bool>> predicate) => await _db.Users.FirstOrDefaultAsync(predicate);
 
-    public async Task<User?> GetUserByIdAsync(int userId) => await _db.Users.FindAsync(userId);
+    public async Task<User?> GetUserByIdAsync(int id) => await _db.Users.FindAsync(id);
 }

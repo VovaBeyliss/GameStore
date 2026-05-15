@@ -7,5 +7,5 @@ namespace GameStore.Repositories.Interfaces;
 public interface IUserRepository {
     Task AddUserAsync(User user);
     Task<User?> GetUserByDetails(Expression<Func<User, bool>> predicate);
-    Task<User?> GetUserByIdAsync(int userId);
+    Task<User?> GetUserByIdAsync(int id);
 }

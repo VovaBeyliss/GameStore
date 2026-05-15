@@ -4,7 +4,6 @@ using GameStore.Services.Interfaces;
 using System.Threading.Tasks;
 using GameStore.Extensions;
 using GameStore.Models;
-using GameStore.Data;
 using GameStore.Dtos;
 
 namespace GameStore.Services;
@@ -35,7 +34,7 @@ public class UserService : IUserService {
         return newUser.Id;
     }
 
-    public async Task<int?> AuthorizationAsync(UserDto dto) {
+    public async Task<int?> AuthorizeAsync(UserDto dto) {
         var user = await _userRepository.GetUserByDetails(u => u.Username == dto.Username && 
                                                           u.Email == dto.Email && 
                                                           u.Password == dto.Password);
@@ -43,5 +42,5 @@ public class UserService : IUserService {
         return user?.Id;
     }
 
-    public async Task<UserDto?> GetUserAsync(int userId) => (await _userRepository.GetUserByIdAsync(userId))?.ToUserDto();
+    public async Task<UserDto?> GetUserAsync(int id) => (await _userRepository.GetUserByIdAsync(id))?.ToUserDto();
 }

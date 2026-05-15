@@ -12,8 +12,8 @@ public class ProductService : IProductService {
 
     public ProductService(IProductRepository productRepository) => _productRepository = productRepository;
 
-    public async Task AddOrUpdateProductAsync(AddProductDto dto, int userId) {  
-        var product = await _productRepository.GetProductByUserIdAndDetailsAsync(p => p.UserId == userId && 
+    public async Task AddOrUpdateProductAsync(AddProductDto dto, int id) {  
+        var product = await _productRepository.GetProductByUserIdAndDetailsAsync(p => p.UserId == id && 
                                                                                  p.Name == dto.Name && 
                                                                                  p.Description == dto.Description && 
                                                                                  p.Price == dto.Price);
@@ -21,7 +21,7 @@ public class ProductService : IProductService {
         if (product == null) {
             var newProduct = new Product {
                 Quantity = 1,
-                UserId = userId,
+                UserId = id,
                 Name = dto.Name,
                 Description = dto.Description,
                 Price = dto.Price
@@ -34,7 +34,7 @@ public class ProductService : IProductService {
         }
     }
 
-    public async Task<List<GetProductDto>> GetUserProductsAsync(int id) => (await _productRepository.GetProductsByUserIdAsync(id)).Select(p => p.ToProductDto())
+    public async Task<List<GetProductDto>> GetUserProductsAsync(int id) => (await _productRepository.GetProductsByUserIdAsync(id)).Select(p => p.ToGetProductDto())
                                                                                                                                   .OrderByDescending(p => p.Quantity)
                                                                                                                                   .ToList();
 

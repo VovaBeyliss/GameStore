@@ -1,6 +1,7 @@
 using GameStore.Repositories.Interfaces;
 using GameStore.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc;
 using GameStore.Repositories;
 using GameStore.Middlewares;
 using GameStore.Services;
